@@ -7,7 +7,7 @@ const url = "https://jsonplaceholder.typicode.com/posts";
 // 取得資料（Read）
 export const GET = async (_, props) => {
     const params = await props.params;
-    const id = await params.id;
+    const id = params.id;
     try {
         const response = await fetch(`${url}/${id}`);
         const data = await response.json();
@@ -20,7 +20,7 @@ export const GET = async (_, props) => {
 // 整筆更新資料（Replace）
 export const PUT = async (_, props) => {
     const params = await props.params;
-    const id = await params.id;
+    const id = params.id;
     try {
         const response = await fetch(`${url}/${id}`, {
             method: "PUT",
