@@ -4,7 +4,9 @@ import { NextResponse } from "next/server";
 
 const url = "https://jsonplaceholder.typicode.com/posts";
 
-export const GET = async (_, { params }) => {
+// 取得資料（Read）
+export const GET = async (_, props) => {
+    const params = await props.params;
     const id = await params.id;
     try {
         const response = await fetch(`${url}/${id}`);
@@ -15,7 +17,9 @@ export const GET = async (_, { params }) => {
     }
 };
 
-export const PUT = async (_, { params }) => {
+// 整筆更新資料（Replace）
+export const PUT = async (_, props) => {
+    const params = await props.params;
     const id = await params.id;
     try {
         const response = await fetch(`${url}/${id}`, {
@@ -37,7 +41,9 @@ export const PUT = async (_, { params }) => {
     }
 };
 
-export const PATCH = async (_, { params }) => {
+// 局部更新資料（Update）
+export const PATCH = async (_, props) => {
+    const params = await props.params;
     const id = params.id;
     try {
         const response = await fetch(`${url}/${id}`, {
@@ -46,10 +52,7 @@ export const PATCH = async (_, { params }) => {
                 "Content-type": "application/json; charset=UTF-8",
             },
             body: JSON.stringify({
-                id: 1,
                 title: "hello",
-                body: "world",
-                userId: 1,
             }),
         });
         const data = await response.json();
@@ -59,15 +62,13 @@ export const PATCH = async (_, { params }) => {
     }
 };
 
-export const DELETE = async (req) => {
-    const { userId, title, body } = await req.json();
+// 刪除資料（Delete）
+export const DELETE = async (_, props) => {
+    const params = await props.params;
+    const id = params.id;
     try {
-        const response = await fetch(url, {
+        const response = await fetch(`${url}/${id}`, {
             method: "DELETE",
-            headers: {
-                "Content-type": "application/json; charset=UTF-8",
-            },
-            body: JSON.stringify({ userId, title, body }),
         });
         const data = await response.json();
         return NextResponse.json(data);

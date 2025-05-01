@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 const url = "https://jsonplaceholder.typicode.com/posts";
 
-// 拿所有文章資料
+// 取得資料（Read）
 export const GET = async () => {
     try {
         const response = await fetch(url);
@@ -15,7 +15,7 @@ export const GET = async () => {
     }
 };
 
-// 根據使用者傳來的資料建立文章
+// 新增資料（Create）
 export const POST = async (req) => {
     const { userId, title, body } = await req.json();
     try {
